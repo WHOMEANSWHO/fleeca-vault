@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fleeca Vault — FiveM Hacking Simulator</title>
+  <meta name="description" content="A practice rig for FiveM-style vault hacks: terminal hack, circuit routing, cipher decoder and pathing. Drill each minigame or run the full breach." />
+  <meta name="theme-color" content="#04120a" />
+  <meta property="og:title" content="Fleeca Vault — FiveM Hacking Simulator" />
+  <meta property="og:description" content="Replica vault minigames — same mechanics, same pressure. Drill a single hack or run the full breach." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23041209'/%3E%3Crect x='2.5' y='2.5' width='27' height='27' rx='5' fill='none' stroke='%2339ff5b' stroke-width='1.5'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' fill='%2339ff5b' text-anchor='middle'%3EFV%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css?v=14" />
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+  <div class="scanlines"></div>
+  <div class="crt">
+
+    <!-- ===== MENU / LANDING ===== -->
+    <section id="menu" class="screen active">
+      <nav class="navbar">
+        <a class="nav-brand" data-nav="home"><span class="nav-logo">FV</span> FLEECA VAULT</a>
+        <div class="nav-links">
+          <a class="nav-link" data-nav="categories">Categories</a>
+          <a class="nav-link" data-nav="about">About</a>
+        </div>
+      </nav>
+
+      <!-- HOME VIEW -->
+      <div class="page" id="home-view">
+        <!-- HERO -->
+        <header class="hero" id="home-section">
+          <span class="hero-kicker">⛓ FIVEM HACKING SIMULATOR</span>
+          <h1 class="hero-title glitch" data-text="Crack the Fleeca Vault.">Crack the <span class="accent">Fleeca Vault</span>.</h1>
+          <p class="hero-sub">
+            Replica Fleeca Bank vault minigames — same mechanics, same pressure.
+            Drill a single hack or run the full breach gauntlet against the clock.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-primary" data-open-cat="fleeca" data-name="FLEECA BANK">▶ Enter Fleeca Bank</button>
+            <a class="btn-ghost" data-nav="categories">View All Targets ↓</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-chip"><b>4</b><span>MINIGAMES</span></div>
+            <div class="stat-chip"><b>8</b><span>BREACH ROUNDS</span></div>
+            <div class="stat-chip"><b>4</b><span>CIPHER TYPES</span></div>
+          </div>
+        </header>
+
+        <!-- CATEGORY TILES -->
+        <section class="categories" id="categories-section">
+          <div class="cat-head">
+            <span class="cat-kicker">TARGETS</span>
+            <h2 class="cat-title">CATEGORIES</h2>
+            <span class="cat-count">5 LOCATIONS</span>
+          </div>
+          <div class="cat-tiles">
+            <button class="cat-tile live" data-cat="fleeca" data-name="FLEECA BANK">
+              <div class="tile-icon">$</div>
+              <div class="tile-body">
+                <div class="tile-status"><span class="tile-live">● ONLINE</span></div>
+                <h3>FLEECA BANK</h3>
+                <p>Terminal, circuit, cipher &amp; pathing — the full vault breach.</p>
+              </div>
+              <div class="tile-foot"><span class="tile-count">4 HACKS</span><span class="tile-go">ENTER ▸</span></div>
+            </button>
+
+            <button class="cat-tile wip" data-cat="jewelry" data-name="JEWELRY STORE">
+              <div class="tile-icon">◆</div>
+              <div class="tile-body">
+                <div class="tile-status"><span class="tile-soon">🔒 LOCKED</span></div>
+                <h3>JEWELRY STORE</h3>
+                <p>Work in progress — new hacks coming soon.</p>
+              </div>
+              <div class="tile-foot"><span class="tile-count">SOON</span><span class="tile-go">VIEW ▸</span></div>
+            </button>
+
+            <button class="cat-tile wip" data-cat="armored" data-name="ARMORED TRUCK">
+              <div class="tile-icon">▣</div>
+              <div class="tile-body">
+                <div class="tile-status"><span class="tile-soon">🔒 LOCKED</span></div>
+                <h3>ARMORED TRUCK</h3>
+                <p>Work in progress — new hacks coming soon.</p>
+              </div>
+              <div class="tile-foot"><span class="tile-count">SOON</span><span class="tile-go">VIEW ▸</span></div>
+            </button>
+
+            <button class="cat-tile wip" data-cat="datacenter" data-name="DATA CENTER">
+              <div class="tile-icon">≡</div>
+              <div class="tile-body">
+                <div class="tile-status"><span class="tile-soon">🔒 LOCKED</span></div>
+                <h3>DATA CENTER</h3>
+                <p>Work in progress — new hacks coming soon.</p>
+              </div>
+              <div class="tile-foot"><span class="tile-count">SOON</span><span class="tile-go">VIEW ▸</span></div>
+            </button>
+
+            <button class="cat-tile wip" data-cat="casino" data-name="CASINO VAULT">
+              <div class="tile-icon">✦</div>
+              <div class="tile-body">
+                <div class="tile-status"><span class="tile-soon">🔒 LOCKED</span></div>
+                <h3>CASINO VAULT</h3>
+                <p>Work in progress — new hacks coming soon.</p>
+              </div>
+              <div class="tile-foot"><span class="tile-count">SOON</span><span class="tile-go">VIEW ▸</span></div>
+            </button>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="about" id="about-section">
+          <h2 class="about-title">About</h2>
+          <p class="about-lead">
+            An unofficial, fan-made training ground for FiveM-style vault hacks. Every minigame is rebuilt
+            from scratch to mirror the real mechanics, visuals and difficulty — so you can practice the
+            patterns until they're muscle memory.
+          </p>
+          <div class="faq">
+            <div class="faq-item"><h4>Is this the real game?</h4><p>No — it's a practice replica. Not affiliated with or endorsed by any game.</p></div>
+            <div class="faq-item"><h4>How do I play?</h4><p>Pick a hack to drill it solo, or hit Run Full Breach to chain all four against the clock.</p></div>
+            <div class="faq-item"><h4>What happens if I fail the breach?</h4><p>Fail the terminal and it restarts; fail anything after and you're sent back to the start.</p></div>
+            <div class="faq-item"><h4>Keyboard or mouse?</h4><p>Both — mouse for routing &amp; pathing, keyboard for the decoder, and both for the terminal.</p></div>
+          </div>
+        </section>
+
+        <footer class="site-foot">
+          <span>FLEECA VAULT</span> // unofficial fan-made practice build · not affiliated with any game
+        </footer>
+      </div>
+
+      <!-- CATEGORY VIEW -->
+      <div class="page" id="category-view" hidden>
+        <div class="cv-bar">
+          <button class="cv-back" data-nav="home">← All Categories</button>
+          <div class="cv-titles">
+            <h2 class="cv-title" id="cv-title">FLEECA BANK</h2>
+            <span class="cv-sub" id="cv-sub">4 HACKS</span>
+          </div>
+        </div>
+
+        <div id="cv-fleeca" class="cv-panel">
+          <div class="breach-banner">
+            <div class="bb-left">
+              <span class="bb-tag">★ GAUNTLET</span>
+              <h3>Fleeca Full Breach</h3>
+              <p>Chain every hack back-to-back — terminal → circuit ×2 → cipher ×2 → pathing ×2. One slip sends you back to the start.</p>
+            </div>
+            <button class="launch big" data-go="full">▶ RUN FULL BREACH</button>
+          </div>
+          <div class="game-grid">
+            <article class="game-card">
+              <div class="thumb thumb-term">
+                <pre class="mini-pre">&gt; ENTER PASSWORD
+0x6143 $@SECURE&amp;
+0x771F #.[&amp;%].^*
+0x18A2 ^VAULTS*=|
+&gt;LIKENESS=3/6</pre>
+                <span class="thumb-tag easy">EASY</span>
+              </div>
+              <div class="card-body">
+                <div class="card-no">HACK 01</div>
+                <h3>Terminal Hack</h3>
+                <p>Crack the password from a memory dump using likeness feedback. Hunt bracket combos to wipe duds — only 1–2 attempts.</p>
+                <button class="launch" data-go="fallout">LAUNCH ▸</button>
+              </div>
+            </article>
+
+            <article class="game-card">
+              <div class="thumb thumb-circ">
+                <svg class="mini-svg" viewBox="0 0 170 96" preserveAspectRatio="xMidYMid meet">
+                  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22,78 h24" stroke="#1c7a30" stroke-width="6"/>
+                    <path d="M132,20 v22" stroke="#1c7a30" stroke-width="6"/>
+                    <path d="M70,70 h22" stroke="#1c7a30" stroke-width="6"/>
+                    <polyline points="16,50 48,50 48,26 96,26 96,72 154,72" stroke="#39ff5b" stroke-width="7" class="lit"/>
+                  </g>
+                </svg>
+                <span class="thumb-tag med">MEDIUM</span>
+              </div>
+              <div class="card-body">
+                <div class="card-no">HACK 02</div>
+                <h3>Circuit Routing</h3>
+                <p>Rotate the pipe tiles to route the signal from IN to OUT before the timer drains. Straights and corners only.</p>
+                <button class="launch" data-go="maze">LAUNCH ▸</button>
+              </div>
+            </article>
+
+            <article class="game-card">
+              <div class="thumb thumb-ciph">
+                <div class="kc-grid">
+                  <span class="kc">47→G</span><span class="kc">55→U</span><span class="kc">41→A</span>
+                  <span class="kc">·−→A</span><span class="kc">Z→A</span><span class="kc">+4→?</span>
+                  <span class="kc">52→R</span><span class="kc">44→D</span><span class="kc">−·→N</span>
+                </div>
+                <span class="thumb-tag vhard">EXTREME</span>
+              </div>
+              <div class="card-body">
+                <div class="card-no">HACK 03</div>
+                <h3>Cipher Decoder</h3>
+                <p>Four packets, four ciphers — hex, morse, atbash and a caesar shift. Read the key and type the decoded word.</p>
+                <button class="launch" data-go="decoder">LAUNCH ▸</button>
+              </div>
+            </article>
+
+            <article class="game-card">
+              <div class="thumb thumb-path">
+                <svg class="mini-svg" viewBox="0 0 170 96" preserveAspectRatio="xMidYMid meet">
+                  <polyline points="28,70 46,40 80,54 110,30" fill="none" stroke="#2af0c8" stroke-width="3" class="litc"/>
+                  <g fill="#2af0c8">
+                    <circle cx="28" cy="70" r="6"/><circle cx="46" cy="40" r="6"/>
+                    <circle cx="80" cy="54" r="6"/><circle cx="110" cy="30" r="6"/>
+                  </g>
+                  <g fill="#0e2c27" stroke="#2af0c8" stroke-width="2.5">
+                    <circle cx="146" cy="64" r="6"/><circle cx="132" cy="22" r="6"/><circle cx="62" cy="78" r="6"/>
+                  </g>
+                </svg>
+                <span class="thumb-tag low">TRICKY</span>
+              </div>
+              <div class="card-body">
+                <div class="card-no">HACK 04</div>
+                <h3>Pathing</h3>
+                <p>Always click the nearest unvisited node to chain the path. One wrong pick resets the whole run. Three boards.</p>
+                <button class="launch" data-go="pathing">LAUNCH ▸</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div id="cv-wip" class="cv-panel" hidden>
+          <div class="wip-panel big">
+            <span class="wip-badge">⚙ WORK IN PROGRESS</span>
+            <p id="cv-wip-text">New hacks for this location are being built. Check back soon.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STAGE 1: MAZE ===== -->
+    <section id="maze" class="screen">
+      <div class="terminal wide">
+        <header class="hud">
+          <h2 class="title sm">FLEECA VAULT</h2>
+          <p class="subtitle">SECURE CORE BREACH PROTOCOL</p>
+          <div class="stats">
+            <div class="stat"><span>STAGE</span><b id="m-stage">1/2</b></div>
+            <div class="stat"><span>MOVES</span><b id="m-moves">0</b></div>
+            <div class="stat"><span>MISS</span><b id="m-miss">--/--</b></div>
+            <div class="stat"><span>TIMER</span><b id="m-timer">--</b></div>
+          </div>
+          <div class="bar"><i id="m-bar"></i></div>
+        </header>
+
+        <canvas id="maze-canvas" width="660" height="660"></canvas>
+
+        <footer class="foot">
+          <p class="rules">CLICK A TILE TO ROTATE&nbsp;&nbsp;|&nbsp;&nbsp;SHIFT+CLICK OR RIGHT-CLICK TO REVERSE&nbsp;&nbsp;|&nbsp;&nbsp;ROUTE THE SIGNAL FROM IN TO OUT</p>
+          <p class="status" id="m-status">IN PROGRESS</p>
+          <div class="ctrl-row">
+            <button class="btn ghost" data-go="menu">EXIT</button>
+            <button class="btn ghost" id="m-new">NEW GRID</button>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ===== STAGE 2: DECODER ===== -->
+    <section id="decoder" class="screen">
+      <div class="terminal wide">
+        <header class="hud">
+          <h2 class="title sm">FLEECA VAULT</h2>
+          <p class="subtitle">SECOND CORE BREACH PROTOCOL</p>
+          <div class="stats">
+            <div class="stat"><span>STAGE</span><b id="d-stage">2/2</b></div>
+            <div class="stat"><span>PACKETS</span><b id="d-packets">0/3</b></div>
+            <div class="stat"><span>MISS</span><b id="d-miss">0</b></div>
+            <div class="stat"><span>TIMER</span><b id="d-timer">--</b></div>
+          </div>
+          <div class="bar"><i id="d-bar"></i></div>
+        </header>
+
+        <div class="code-bar">
+          <div class="packet-tabs" id="d-tabs">
+            <span class="ptab">1</span>
+            <span class="ptab">2</span>
+            <span class="ptab">3</span>
+            <span class="ptab">4</span>
+          </div>
+          <span class="cipher-label" id="d-cipher">HEX → ASCII</span>
+          <div class="code" id="d-code">-- -- -- --</div>
+        </div>
+
+        <div class="trial-shift" id="d-trial" hidden>
+          <span class="trial-label">TRIAL SHIFT</span>
+          <button class="shift-btn" id="d-shift-down">&#9664;</button>
+          <span class="shift-val" id="d-shift-val">+1</span>
+          <button class="shift-btn" id="d-shift-up">&#9654;</button>
+          <span class="trial-hint">TRY SHIFTS UNTIL THE DECODED WORD MAKES SENSE</span>
+        </div>
+
+        <div class="decoder-key">
+          <p class="key-title">DECODER KEY</p>
+          <div class="key-grid" id="d-key"></div>
+        </div>
+
+        <div class="answer">
+          <p class="answer-title">TYPE THE DECODED WORD</p>
+          <div class="boxes" id="d-boxes"></div>
+          <p class="rules">A–Z TO TYPE&nbsp;&nbsp;|&nbsp;&nbsp;BACKSPACE TO EDIT</p>
+        </div>
+
+        <footer class="foot">
+          <p class="status" id="d-status">IN PROGRESS</p>
+          <div class="ctrl-row">
+            <button class="btn ghost" data-go="menu">EXIT</button>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <!-- ===== STAGE 3: PATHING ===== -->
+    <section id="pathing" class="screen">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Pathing</span>
+          <button class="modal-x" data-go="menu">&#10005;</button>
+        </div>
+        <div class="modal-instruction">Go to the next closest point.</div>
+        <div class="board-wrap">
+          <canvas id="path-canvas" width="600" height="600"></canvas>
+          <div class="overlay-msg" id="p-msg"></div>
+        </div>
+        <div class="seg-bar">
+          <div class="seg"><i></i></div>
+          <div class="seg"><i></i></div>
+          <div class="seg"><i></i></div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn ghost" data-go="menu">EXIT</button>
+          <button class="btn ghost" id="p-new">RESTART</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STAGE 4: TERMINAL HACK ===== -->
+    <section id="fallout" class="screen">
+      <div class="terminal wide term">
+        <header class="term-head">
+          <div class="term-title">FLEECA SECURITY // TERMLINK PROTOCOL</div>
+          <div class="term-sub">ENTER PASSWORD NOW</div>
+          <div class="term-attempts">ATTEMPTS LEFT: <span id="f-blocks"></span></div>
+        </header>
+        <div class="term-body">
+          <div class="term-cols" id="f-cols"></div>
+          <div class="term-log" id="f-log"></div>
+        </div>
+        <p class="term-status" id="f-status">AWAITING INPUT</p>
+        <div class="ctrl-row">
+          <button class="btn ghost" data-go="menu">EXIT</button>
+          <button class="btn ghost" id="f-new">NEW HACK</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/bg.js?v=14"></script>
+  <script src="js/maze.js?v=14"></script>
+  <script src="js/decoder.js?v=14"></script>
+  <script src="js/pathing.js?v=14"></script>
+  <script src="js/fallout.js?v=14"></script>
+  <script src="js/main.js?v=14"></script>
+</body>
+</html>
