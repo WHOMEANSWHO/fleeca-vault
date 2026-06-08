@@ -14,13 +14,10 @@ const Fallout = (() => {
 
   const SYMBOLS = '!@#$%^&*_-+=|;:,.?/\\"\''.split('');
   const BRACKETS = [['(', ')'], ['[', ']'], ['{', '}'], ['<', '>']];
-  const WORDS = [
-    'VAULTS', 'BREACH', 'CIPHER', 'ACCESS', 'SECURE', 'LOCKED', 'MASTER',
-    'SYSTEM', 'BINARY', 'MEMORY', 'KERNEL', 'MODULE', 'PACKET', 'ROUTER',
-    'SIGNAL', 'DAMAGE', 'FAULTS', 'HACKER', 'ESCAPE', 'GUARDS', 'ALARMS',
-    'TUNNEL', 'WIRING', 'COPPER', 'THEFTS', 'HEISTS', 'DENIED', 'GRANTS',
-    'RECORD', 'TELLER', 'CREDIT', 'CASHED', 'FROZEN', 'LEDGER',
-  ];
+  // 1000 common 6-letter words from words.js; small fallback if it fails to load
+  const WORDS = (typeof WORDS_TERMINAL !== 'undefined' && WORDS_TERMINAL.length)
+    ? WORDS_TERMINAL
+    : ['VAULTS', 'BREACH', 'CIPHER', 'ACCESS', 'SECURE', 'SYSTEM', 'MEMORY', 'PACKET', 'SIGNAL', 'HACKER'];
 
   let els, onWin, onFail;
   let rows, words, password, attempts, removed, usedBrackets, solved, locked, log, lastRemoved, lastBracket;

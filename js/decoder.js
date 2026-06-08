@@ -4,11 +4,10 @@
    A decoder key is shown; type the decoded word.
    =========================================================== */
 const Decoder = (() => {
-  const WORDS = [
-    'GUARD', 'WIRE', 'VAULT', 'BREACH', 'CIPHER', 'ACCESS', 'CRACK',
-    'LOCK', 'STEEL', 'ALARM', 'SECURE', 'BYPASS', 'HEIST', 'CODE',
-    'NODE', 'RELAY', 'PULSE', 'GRID', 'FLEECA', 'SIGNAL', 'CORE',
-  ];
+  // 1000 common 4-6 letter words from words.js; small fallback if it fails to load
+  const WORDS = (typeof WORDS_DECODER !== 'undefined' && WORDS_DECODER.length)
+    ? WORDS_DECODER
+    : ['GUARD', 'VAULT', 'BREACH', 'CIPHER', 'ACCESS', 'CRACK', 'SECURE', 'SIGNAL', 'CODE', 'CORE'];
 
   const MORSE = {
     A: '.-', B: '-...', C: '-.-.', D: '-..', E: '.', F: '..-.', G: '--.',

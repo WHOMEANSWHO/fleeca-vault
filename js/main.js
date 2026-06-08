@@ -15,6 +15,7 @@
   function show(name) {
     Object.values(screens).forEach(s => s.classList.remove('active'));
     screens[name].classList.add('active');
+    document.getElementById('exit-btn').hidden = (name === 'menu');
   }
 
   // ---- maze HUD elements ----
@@ -81,13 +82,21 @@
     else { breachStep = 0; breachRound = 1; setTimeout(runBreachStage, 1600); }      // back to the start
   }
 
+  // Solo practice: after finishing a round (win OR fail) auto-serve another of
+  // the same game, until the player exits. Skips if they've already left.
+  function soloLoop(screenName, restart, delay) {
+    setTimeout(() => {
+      if (mode === 'single' && screens[screenName].classList.contains('active')) restart();
+    }, delay);
+  }
+
   // ---------- CIRCUIT ROUTING ----------
   Maze.init(document.getElementById('maze-canvas'), state => {
     mEls.moves.textContent = state.moves + '/--';
     if (state.win) {
       mEls.status.textContent = 'CIRCUIT COMPLETE';
       mEls.status.className = 'status win';
-      breachPass();           // full: pause then advance; single: no-op
+      if (mode === 'full') breachPass(); else soloLoop('maze', startMaze, 1400);
     }
   });
 
@@ -99,7 +108,7 @@
     mEls.bar.style.transition = 'none';          // rAF drives the width directly
     mEls.bar.style.width = '100%';
     mEls.bar.style.background = '';
-    const limit = 60;
+    const limit = 75;            // a touch more time for the larger 7x7 board
     Maze.newGame();
     Maze.startTimer(limit,
       rem => {
@@ -116,7 +125,7 @@
     if (Maze.solved) return;
     mEls.status.textContent = 'LOCKOUT — RETRY';
     mEls.status.className = 'status fail';
-    breachFail();              // full: back to start; single: no-op
+    if (mode === 'full') breachFail(); else soloLoop('maze', startMaze, 1700);
   }
 
   // ---------- CIPHER DECODER ----------
@@ -126,7 +135,7 @@
     dEls.bar.style.width = '100%';
     dEls.status.textContent = 'PACKETS DECODED';
     dEls.status.className = 'status win';
-    breachPass();              // full: next round / next stage; single: no-op
+    if (mode === 'full') breachPass(); else soloLoop('decoder', startDecoder, 1400);
   });
 
   // ---------- PATHING ----------
@@ -136,8 +145,8 @@
     msg: document.getElementById('p-msg'),
   };
   Pathing.init(pEls,
-    () => breachPass(),                                          // all stages complete
-    () => { if (mode === 'full') breachFail(); else Pathing.newGame(); });  // wrong pick
+    () => { if (mode === 'full') breachPass(); else soloLoop('pathing', startPathing, 1000); },  // all stages complete
+    () => { if (mode === 'full') breachFail(); else Pathing.newGame(); });                        // wrong pick
 
   function startPathing() {
     show('pathing');
@@ -152,8 +161,8 @@
     status: document.getElementById('f-status'),
   };
   Fallout.init(fEls,
-    () => breachPass(),        // ACCESS GRANTED -> next stage (full only)
-    () => breachFail());       // TERMINAL LOCKED -> restart terminal (full only)
+    () => { if (mode === 'full') breachPass(); else soloLoop('fallout', () => Fallout.newGame(), 1500); },
+    () => { if (mode === 'full') breachFail(); else soloLoop('fallout', () => Fallout.newGame(), 1700); });
 
   function startFallout() {
     show('fallout');
@@ -190,7 +199,7 @@
     if (Decoder.done) return;
     dEls.status.textContent = 'LOCKOUT — RETRY';
     dEls.status.className = 'status fail';
-    breachFail();              // full: back to start; single: no-op
+    if (mode === 'full') breachFail(); else soloLoop('decoder', startDecoder, 1700);
   }
 
   function startDecoder() {

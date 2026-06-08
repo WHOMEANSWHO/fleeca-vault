@@ -3,7 +3,7 @@
    Rotate tiles to route the signal from IN (left) to OUT (top-right).
    =========================================================== */
 const Maze = (() => {
-  const COLS = 6, ROWS = 6;
+  const COLS = 7, ROWS = 7;
   const DIRS = ['N', 'E', 'S', 'W'];
   const DELTA = { N: [0, -1], E: [1, 0], S: [0, 1], W: [-1, 0] };
   const OPP = { N: 'S', E: 'W', S: 'N', W: 'E' };
@@ -71,7 +71,8 @@ const Maze = (() => {
     return path;
   }
 
-  function generate() {
+  // build one full layout with the path tiles at their solution rotation
+  function buildLayout() {
     OUT_ROW = Math.random() < 0.5 ? 0 : ROWS - 1;   // top- or bottom-right corner
 
     grid = Array.from({ length: ROWS }, () =>
@@ -98,7 +99,8 @@ const Maze = (() => {
       const req = required[y][x];
       const arr = [...req];
       const type = (OPP[arr[0]] === arr[1]) ? 'straight' : 'corner';
-      grid[y][x] = { type, rot: rotationFor(type, req), onPath: true, sol: rotationFor(type, req) };
+      const sol = rotationFor(type, req);
+      grid[y][x] = { type, rot: sol, onPath: true, sol };
     }
     // fill the rest with random decoy pieces (straights & corners only)
     const decoy = ['straight', 'corner', 'corner'];
@@ -106,8 +108,16 @@ const Maze = (() => {
       for (let x = 0; x < COLS; x++)
         if (!grid[y][x].onPath)
           grid[y][x] = { type: decoy[(Math.random() * decoy.length) | 0], rot: (Math.random() * 4) | 0 };
+  }
 
-    // scramble every tile so the player has to fix it
+  function generate() {
+    // Guarantee the board is completable: with the path tiles at their
+    // solution rotation the signal must reach OUT. Retry on a rare bad carve.
+    for (let attempt = 0; attempt < 80; attempt++) {
+      buildLayout();
+      if (checkSolved(poweredSet())) break;
+    }
+    // scramble every tile so the player has to route it themselves
     for (let y = 0; y < ROWS; y++)
       for (let x = 0; x < COLS; x++)
         grid[y][x].rot = (Math.random() * 4) | 0;

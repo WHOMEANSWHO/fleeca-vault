@@ -34,6 +34,29 @@ html, body {
   animation: flicker 6s infinite;
 }
 
+/* persistent top-left exit button (shown during games) */
+.exit-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 30;
+  font-family: "Consolas", monospace;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--green);
+  background: rgba(4, 18, 10, .88);
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  padding: 9px 16px;
+  cursor: pointer;
+  box-shadow: var(--glow);
+  backdrop-filter: blur(4px);
+  transition: background .15s, transform .06s;
+}
+.exit-btn:hover { background: rgba(57, 255, 91, .2); }
+.exit-btn:active { transform: scale(.96); }
+.exit-btn[hidden] { display: none; }
+
 /* matrix-rain backdrop */
 #matrix {
   position: fixed;
@@ -472,7 +495,7 @@ html, body {
   color: var(--green-dim);
 }
 .ptab.current { border-color: var(--green); color: var(--green); box-shadow: var(--glow); text-shadow: var(--glow); }
-.ptab.done { background: rgba(57,255,91,.18); border-color: var(--green); color: var(--green); }
+.ptab.done { background: var(--green); border-color: var(--green); color: #04120a; }   /* solid = completed */
 
 .cipher-label { font-size: 11px; color: var(--green-dim); letter-spacing: 3px; }
 .code {
