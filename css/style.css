@@ -730,12 +730,12 @@ html, body {
 .thumb-pin .pm-title { font-size: 13px; letter-spacing: 2px; margin-bottom: 6px; }
 .thumb-pin .pm-leg { font-size: 9px; letter-spacing: 0; margin-bottom: 8px; }
 .thumb-pin .pm-leg .c { color: #3dcc45; }
-.thumb-pin .pm-leg .p { color: #5b7ec4; }
+.thumb-pin .pm-leg .p { color: #c26bff; }
 .thumb-pin .pm-leg .w { color: #c41c18; }
 .thumb-pin .pm-in { color: #3dcc45; margin-bottom: 6px; }
 .thumb-pin .pm-att { letter-spacing: 3px; }
 .thumb-pin .pm-att .c { color: #3dcc45; }
-.thumb-pin .pm-att .p { color: #5b7ec4; }
+.thumb-pin .pm-att .p { color: #c26bff; }
 .thumb-pin .pm-att .w { color: #c41c18; }
 
 /* ===== PIN CRACKER ===== */
@@ -820,7 +820,7 @@ html, body {
   margin: 4px 0 32px;
 }
 #pincracker .pc-legend .correct { color: #3dcc45; text-shadow: 0 0 8px rgba(52, 171, 49, 0.5); }
-#pincracker .pc-legend .placement { color: #5b7ec4; text-shadow: 0 0 8px rgba(74, 106, 168, 0.45); }
+#pincracker .pc-legend .placement { color: #c26bff; text-shadow: 0 0 8px rgba(168, 74, 220, 0.55); }
 #pincracker .pc-legend .wrong { color: #c41c18; text-shadow: 0 0 8px rgba(196, 28, 24, 0.4); }
 #pincracker .pc-legend .pipe { color: #ecece4; padding: 0 8px; }
 #pincracker .pc-input {
@@ -873,8 +873,8 @@ html, body {
   text-shadow: 0 0 2px #34ab31, 0 0 10px rgba(52, 171, 49, 0.7);
 }
 #pincracker .pc-digit.placement {
-  color: #5b7ec4;
-  text-shadow: 0 0 2px #4a6aa8, 0 0 10px rgba(74, 106, 168, 0.65);
+  color: #c26bff;
+  text-shadow: 0 0 2px #9b3de0, 0 0 10px rgba(168, 74, 220, 0.7);
 }
 #pincracker .pc-digit.wrong {
   color: #b81e18;

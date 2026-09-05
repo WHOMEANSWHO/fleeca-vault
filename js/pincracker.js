@@ -1,6 +1,6 @@
 /* ===========================================================
    PIN CRACKER — Wordle / Mastermind PIN hack
-   Unique digits from 0–9. Green = right slot, blue = in the PIN
+   Unique digits from 0–9. Green = right slot, purple = in the PIN
    wrong slot, red = not in the PIN. 4, 5 or 6 digits. 5 attempts.
    A heist can chain 2–5 PINs; fail one and the run is over.
    =========================================================== */

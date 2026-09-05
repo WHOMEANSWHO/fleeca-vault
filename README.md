@@ -9,7 +9,7 @@ HTML / CSS / JavaScript.
 - **Circuit Routing** — rotate pipe tiles to route the signal from IN to OUT before the timer.
 - **Cipher Decoder** — four packets: hex, morse, atbash and a caesar shift.
 - **Pathing** — chain the nearest unvisited node; one wrong pick resets the run.
-- **Pin Cracker** — unique 4 / 5 / 6-digit PIN. Green = right slot, blue = wrong slot, red = out. Five attempts; a heist chains 2–5 codes.
+- **Pin Cracker** — unique 4 / 5 / 6-digit PIN. Green = right slot, purple = wrong slot, red = out. Five attempts; a heist chains 2–5 codes.
 
 Plus **Fleeca Full Breach**, which chains all five back-to-back.
 
