@@ -8,6 +8,7 @@
     decoder: document.getElementById('decoder'),
     pathing: document.getElementById('pathing'),
     fallout: document.getElementById('fallout'),
+    pincracker: document.getElementById('pincracker'),
   };
 
   let mode = 'single';   // 'single' (one stage) or 'full' (chained)
@@ -47,13 +48,14 @@
   };
 
   // ---------- full breach state machine ----------
-  // Terminal x1 -> Circuit x2 -> Cipher x2 -> Pathing x2.
+  // Terminal x1 -> Circuit x2 -> Cipher x2 -> Pathing x2 -> Pin Cracker x2.
   // Fail the terminal -> restart terminal. Fail anything later -> back to start.
   const BREACH = [
-    { stage: 'fallout', rounds: 1 },
-    { stage: 'maze',    rounds: 2 },
-    { stage: 'decoder', rounds: 2 },
-    { stage: 'pathing', rounds: 2 },
+    { stage: 'fallout',     rounds: 1 },
+    { stage: 'maze',        rounds: 2 },
+    { stage: 'decoder',     rounds: 2 },
+    { stage: 'pathing',     rounds: 2 },
+    { stage: 'pincracker',  rounds: 2 },
   ];
   let breachStep = 0, breachRound = 1;
 
@@ -68,6 +70,7 @@
     else if (st === 'maze') startMaze();
     else if (st === 'decoder') startDecoder();
     else if (st === 'pathing') startPathing();
+    else if (st === 'pincracker') startPinCracker();
   }
   function breachPass() {
     if (mode !== 'full') return;
@@ -171,6 +174,23 @@
     Fallout.newGame();
   }
 
+  // ---------- PIN CRACKER ----------
+  PinCracker.init(
+    { hud: document.getElementById('pc-hud') },
+    () => { if (mode === 'full') breachPass(); else soloLoop('pincracker', startPinCracker, 1400); },
+    () => { if (mode === 'full') breachFail(); else soloLoop('pincracker', startPinCracker, 1700); }
+  );
+
+  function startPinCracker() {
+    show('pincracker');
+    document.getElementById('pc-new').style.display = mode === 'full' ? 'none' : '';
+    PinCracker.newGame({
+      pinLen: 'mix',
+      stages: mode === 'full' ? 1 : 'heist',
+      maxAttempts: 5,
+    });
+  }
+
   let dRaf = null;
   function decoderTimerStart(seconds) {
     decoderTimerStop();
@@ -217,11 +237,13 @@
       const go = btn.dataset.go;
       Maze.stopTimer();
       decoderTimerStop();
+      PinCracker.stop();
       if (go === 'menu') { show('menu'); return; }
       if (go === 'maze') { mode = 'single'; show('maze'); startMaze(); return; }
       if (go === 'decoder') { mode = 'single'; show('decoder'); startDecoder(); return; }
       if (go === 'pathing') { mode = 'single'; startPathing(); return; }
       if (go === 'fallout') { mode = 'single'; startFallout(); return; }
+      if (go === 'pincracker') { mode = 'single'; startPinCracker(); return; }
       if (go === 'full') { startBreach(); return; }
     });
   });
@@ -243,7 +265,7 @@
     const live = cat === 'fleeca';
     cvFleeca.hidden = !live;
     cvWip.hidden = live;
-    document.getElementById('cv-sub').textContent = live ? '4 HACKS' : 'COMING SOON';
+    document.getElementById('cv-sub').textContent = live ? '5 HACKS' : 'COMING SOON';
     if (!live) document.getElementById('cv-wip-text').textContent =
       `${name} hacks are being built. Check back soon.`;
     screens.menu.scrollTop = 0;
@@ -269,6 +291,7 @@
   document.getElementById('m-new').addEventListener('click', () => startMaze());
   document.getElementById('p-new').addEventListener('click', () => Pathing.newGame());
   document.getElementById('f-new').addEventListener('click', () => Fallout.newGame());
+  document.getElementById('pc-new').addEventListener('click', () => startPinCracker());
 
   show('menu');
 })();

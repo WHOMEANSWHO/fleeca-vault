@@ -715,3 +715,190 @@ html, body {
 }
 .term-status.win { color: var(--green); animation: pulse .6s infinite alternate; }
 .term-status.fail { color: var(--red); text-shadow: 0 0 6px var(--red); }
+
+.thumb-tag.hard { color: #c9a0ff; }
+
+.thumb-pin .pin-mini {
+  width: 86%;
+  font-family: "Consolas", monospace;
+  font-size: 11px;
+  line-height: 1.55;
+  text-align: left;
+  color: #34ab31;
+  text-shadow: 0 0 6px rgba(52, 171, 49, .45);
+}
+.thumb-pin .pm-title { font-size: 13px; letter-spacing: 2px; margin-bottom: 6px; }
+.thumb-pin .pm-leg { font-size: 9px; letter-spacing: 0; margin-bottom: 8px; }
+.thumb-pin .pm-leg .c { color: #3dcc45; }
+.thumb-pin .pm-leg .p { color: #5b7ec4; }
+.thumb-pin .pm-leg .w { color: #c41c18; }
+.thumb-pin .pm-in { color: #3dcc45; margin-bottom: 6px; }
+.thumb-pin .pm-att { letter-spacing: 3px; }
+.thumb-pin .pm-att .c { color: #3dcc45; }
+.thumb-pin .pm-att .p { color: #5b7ec4; }
+.thumb-pin .pm-att .w { color: #c41c18; }
+
+/* ===== PIN CRACKER ===== */
+#pincracker {
+  font-family: "Press Start 2P", "Consolas", "Courier New", monospace;
+  letter-spacing: 0;
+  color: #34ab31;
+  position: relative;
+}
+#pincracker.screen.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+#pincracker .pc-bezel {
+  width: min(96vw, 1600px);
+  height: min(82vh, 860px);
+  background: linear-gradient(160deg, #222 0%, #161616 40%, #0c0c0c 100%);
+  border-radius: 36px;
+  padding: 18px;
+  box-shadow: inset 0 0 0 2px #2e2e2e, 0 0 0 1px #000;
+}
+#pincracker .pc-crt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 42%, #143016 0%, #0b1c0c 48%, #050a06 100%);
+}
+#pincracker .pc-crt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.22) 0px,
+    rgba(0, 0, 0, 0.22) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+#pincracker .pc-crt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  border-radius: 22px;
+  box-shadow:
+    inset 0 0 80px 24px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 2px rgba(40, 90, 40, 0.18);
+}
+#pincracker .pc-hud {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: 7vh 5.2vw 5vh;
+  text-align: left;
+}
+#pincracker .pc-title {
+  font-size: 22px;
+  line-height: 1.4;
+  color: #3dcc45;
+  text-shadow: 0 0 10px rgba(52, 171, 49, 0.45);
+  margin-bottom: 22px;
+}
+#pincracker .pc-line {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #34ab31;
+  text-shadow: 0 0 6px rgba(52, 171, 49, 0.28);
+  margin-bottom: 16px;
+}
+#pincracker .pc-legend {
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 4px 0 32px;
+}
+#pincracker .pc-legend .correct { color: #3dcc45; text-shadow: 0 0 8px rgba(52, 171, 49, 0.5); }
+#pincracker .pc-legend .placement { color: #5b7ec4; text-shadow: 0 0 8px rgba(74, 106, 168, 0.45); }
+#pincracker .pc-legend .wrong { color: #c41c18; text-shadow: 0 0 8px rgba(196, 28, 24, 0.4); }
+#pincracker .pc-legend .pipe { color: #ecece4; padding: 0 8px; }
+#pincracker .pc-input {
+  font-size: 16px;
+  color: #3dcc45;
+  min-height: 26px;
+  margin-bottom: 18px;
+  text-shadow: 0 0 8px rgba(52, 171, 49, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#pincracker .pc-typed { letter-spacing: 0.22em; }
+#pincracker .pc-caret {
+  display: inline-block;
+  width: 12px;
+  height: 18px;
+  background: #f2f2ea;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  animation: pcblink 1.05s steps(1) infinite;
+}
+#pincracker .pc-caret.hidden { visibility: hidden; animation: none; }
+@keyframes pcblink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+#pincracker .pc-remain {
+  font-size: 13px;
+  color: #c41c18;
+  text-shadow: 0 0 8px rgba(196, 28, 24, 0.45);
+  margin-bottom: 24px;
+}
+#pincracker .pc-history { display: flex; flex-direction: column; gap: 14px; }
+#pincracker .pc-attempt {
+  font-size: 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+#pincracker .pc-alabel { color: #d4d4c8; white-space: nowrap; }
+#pincracker .pc-digits { display: flex; gap: 10px; }
+#pincracker .pc-digit {
+  min-width: 16px;
+  text-align: center;
+  font-size: 16px;
+}
+#pincracker .pc-digit.correct {
+  color: #3dcc45;
+  text-shadow: 0 0 2px #34ab31, 0 0 10px rgba(52, 171, 49, 0.7);
+}
+#pincracker .pc-digit.placement {
+  color: #5b7ec4;
+  text-shadow: 0 0 2px #4a6aa8, 0 0 10px rgba(74, 106, 168, 0.65);
+}
+#pincracker .pc-digit.wrong {
+  color: #b81e18;
+  text-shadow: 0 0 2px #8e1612, 0 0 10px rgba(184, 30, 24, 0.55);
+}
+#pincracker .pc-status { margin-top: 8px; }
+#pincracker .pc-smsg {
+  font-size: 16px;
+  color: #3dcc45;
+  text-shadow: 0 0 10px rgba(52, 171, 49, 0.45);
+  margin-bottom: 18px;
+}
+#pincracker .pc-smsg.failed {
+  color: #c41c18;
+  text-shadow: 0 0 10px rgba(196, 28, 24, 0.5);
+}
+#pincracker .pc-ssub {
+  font-size: 13px;
+  color: #34ab31;
+  margin-bottom: 40px;
+}
+#pincracker .pc-sleft { font-size: 13px; color: #3dcc45; }
+#pincracker .pc-ctrl { display: flex; gap: 12px; }
+@media (max-width: 720px) {
+  #pincracker .pc-title { font-size: 16px; }
+  #pincracker .pc-line, #pincracker .pc-legend { font-size: 9px; }
+}

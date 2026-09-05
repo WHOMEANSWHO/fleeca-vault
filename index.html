@@ -4,13 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fleeca Vault — FiveM Hacking Simulator</title>
-  <meta name="description" content="A practice rig for FiveM-style vault hacks: terminal hack, circuit routing, cipher decoder and pathing. Drill each minigame or run the full breach." />
+  <meta name="description" content="A practice rig for FiveM-style vault hacks: terminal hack, circuit routing, cipher decoder, pathing and pin cracker. Drill each minigame or run the full breach." />
   <meta name="theme-color" content="#04120a" />
   <meta property="og:title" content="Fleeca Vault — FiveM Hacking Simulator" />
   <meta property="og:description" content="Replica vault minigames — same mechanics, same pressure. Drill a single hack or run the full breach." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23041209'/%3E%3Crect x='2.5' y='2.5' width='27' height='27' rx='5' fill='none' stroke='%2339ff5b' stroke-width='1.5'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='bold' fill='%2339ff5b' text-anchor='middle'%3EFV%3C/text%3E%3C/svg%3E" />
-  <link rel="stylesheet" href="css/style.css?v=14" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=15" />
 </head>
 <body>
   <canvas id="matrix"></canvas>
@@ -44,8 +47,8 @@
             <a class="btn-ghost" data-nav="categories">View All Targets ↓</a>
           </div>
           <div class="hero-stats">
-            <div class="stat-chip"><b>4</b><span>MINIGAMES</span></div>
-            <div class="stat-chip"><b>8</b><span>BREACH ROUNDS</span></div>
+            <div class="stat-chip"><b>5</b><span>MINIGAMES</span></div>
+            <div class="stat-chip"><b>10</b><span>BREACH ROUNDS</span></div>
             <div class="stat-chip"><b>4</b><span>CIPHER TYPES</span></div>
           </div>
         </header>
@@ -63,9 +66,9 @@
               <div class="tile-body">
                 <div class="tile-status"><span class="tile-live">● ONLINE</span></div>
                 <h3>FLEECA BANK</h3>
-                <p>Terminal, circuit, cipher &amp; pathing — the full vault breach.</p>
+                <p>Terminal, circuit, cipher, pathing &amp; pin cracker — the full vault breach.</p>
               </div>
-              <div class="tile-foot"><span class="tile-count">4 HACKS</span><span class="tile-go">ENTER ▸</span></div>
+              <div class="tile-foot"><span class="tile-count">5 HACKS</span><span class="tile-go">ENTER ▸</span></div>
             </button>
 
             <button class="cat-tile wip" data-cat="jewelry" data-name="JEWELRY STORE">
@@ -120,9 +123,9 @@
           </p>
           <div class="faq">
             <div class="faq-item"><h4>Is this the real game?</h4><p>No — it's a practice replica. Not affiliated with or endorsed by any game.</p></div>
-            <div class="faq-item"><h4>How do I play?</h4><p>Pick a hack to drill it solo, or hit Run Full Breach to chain all four against the clock.</p></div>
+            <div class="faq-item"><h4>How do I play?</h4><p>Pick a hack to drill it solo, or hit Run Full Breach to chain all five against the clock.</p></div>
             <div class="faq-item"><h4>What happens if I fail the breach?</h4><p>Fail the terminal and it restarts; fail anything after and you're sent back to the start.</p></div>
-            <div class="faq-item"><h4>Keyboard or mouse?</h4><p>Both — mouse for routing &amp; pathing, keyboard for the decoder, and both for the terminal.</p></div>
+            <div class="faq-item"><h4>Keyboard or mouse?</h4><p>Both — mouse for routing &amp; pathing, keyboard for the decoder and pin cracker, and both for the terminal.</p></div>
           </div>
         </section>
 
@@ -137,7 +140,7 @@
           <button class="cv-back" data-nav="home">← All Categories</button>
           <div class="cv-titles">
             <h2 class="cv-title" id="cv-title">FLEECA BANK</h2>
-            <span class="cv-sub" id="cv-sub">4 HACKS</span>
+            <span class="cv-sub" id="cv-sub">5 HACKS</span>
           </div>
         </div>
 
@@ -146,7 +149,7 @@
             <div class="bb-left">
               <span class="bb-tag">★ GAUNTLET</span>
               <h3>Fleeca Full Breach</h3>
-              <p>Chain every hack back-to-back — terminal → circuit ×2 → cipher ×2 → pathing ×2. One slip sends you back to the start.</p>
+              <p>Chain every hack back-to-back — terminal → circuit ×2 → cipher ×2 → pathing ×2 → pin cracker ×2. One slip sends you back to the start.</p>
             </div>
             <button class="launch big" data-go="full">▶ RUN FULL BREACH</button>
           </div>
@@ -224,6 +227,24 @@
                 <h3>Pathing</h3>
                 <p>Always click the nearest unvisited node to chain the path. One wrong pick resets the whole run. Three boards.</p>
                 <button class="launch" data-go="pathing">LAUNCH ▸</button>
+              </div>
+            </article>
+
+            <article class="game-card">
+              <div class="thumb thumb-pin">
+                <div class="pin-mini">
+                  <div class="pm-title">PIN CRACKER</div>
+                  <div class="pm-leg"><span class="c">CORRECT</span> | <span class="p">WRONG PLACEMENT</span> | <span class="w">WRONG</span></div>
+                  <div class="pm-in">&gt;&gt;</div>
+                  <div class="pm-att"><span class="c">0</span> <span class="w">1</span> <span class="w">2</span> <span class="p">3</span> <span class="c">4</span></div>
+                </div>
+                <span class="thumb-tag hard">HARD</span>
+              </div>
+              <div class="card-body">
+                <div class="card-no">HACK 05</div>
+                <h3>Pin Cracker</h3>
+                <p>Guess a 4, 5 or 6-digit PIN of unique digits. Green is locked in, blue is in the PIN, red is out. Five attempts — a heist chains 2–5 codes.</p>
+                <button class="launch" data-go="pincracker">LAUNCH ▸</button>
               </div>
             </article>
           </div>
@@ -364,14 +385,28 @@
       </div>
     </section>
 
+    <!-- ===== STAGE 5: PIN CRACKER ===== -->
+    <section id="pincracker" class="screen">
+      <div class="pc-bezel">
+        <div class="pc-crt">
+          <div class="pc-hud" id="pc-hud"></div>
+        </div>
+      </div>
+      <div class="pc-ctrl">
+        <button class="btn ghost" data-go="menu">EXIT</button>
+        <button class="btn ghost" id="pc-new">NEW HACK</button>
+      </div>
+    </section>
+
   </div>
 
-  <script src="js/bg.js?v=16"></script>
-  <script src="js/words.js?v=16"></script>
-  <script src="js/maze.js?v=16"></script>
-  <script src="js/decoder.js?v=16"></script>
-  <script src="js/pathing.js?v=16"></script>
-  <script src="js/fallout.js?v=16"></script>
-  <script src="js/main.js?v=16"></script>
+  <script src="js/bg.js?v=17"></script>
+  <script src="js/words.js?v=17"></script>
+  <script src="js/maze.js?v=17"></script>
+  <script src="js/decoder.js?v=17"></script>
+  <script src="js/pathing.js?v=17"></script>
+  <script src="js/fallout.js?v=17"></script>
+  <script src="js/pincracker.js?v=17"></script>
+  <script src="js/main.js?v=17"></script>
 </body>
 </html>
